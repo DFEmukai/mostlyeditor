@@ -1,354 +1,469 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Users, 
-  TrendingUp, 
-  ShieldCheck, 
-  Globe, 
-  BookOpen, 
-  ArrowRight, 
-  Clock, 
-  Target, 
-  Mic2,
-  ChevronDown,
-  Printer
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOSTLY CLASSIC - Re-founding Proposal 2026</title>
+    
+    <!-- Google Fonts: Noto Sans JP (Gothic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-const App = () => {
-  const [activeSection, setActiveSection] = useState('vision');
-  const [isScrolled, setIsScrolled] = useState(false);
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-black selection:bg-gray-300 antialiased">
 
-  // Handle scroll for header styling
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const comparisonData = [
-    {
-      id: 1,
-      category: "運営主体",
-      icon: <Users className="w-6 h-6" />,
-      old: {
-        title: "個人商店化",
-        desc: "現編集長個人の手腕と気分に依存。ガバナンスが効かずブラックボックス化。"
-      },
-      new: {
-        title: "組織的運営（OEM）",
-        desc: "委託先：シンコーミュージック。法人契約に基づき、納期・品質・コンプライアンスを徹底。"
-      }
-    },
-    {
-      id: 2,
-      category: "編集方針",
-      icon: <BookOpen className="w-6 h-6" />,
-      old: {
-        title: "既存路線の踏襲",
-        desc: "企画のマンネリ化。執筆陣や記事内容が固定化しがち。"
-      },
-      new: {
-        title: "伝統 × 革新",
-        desc: "シンコーの編集力 × 坂元裕仁氏の知見。教育・合唱分野など新たな切り口を導入。"
-      }
-    },
-    {
-      id: 3,
-      category: "ターゲット",
-      icon: <Target className="w-6 h-6" />,
-      old: {
-        title: "高齢化する既存愛好家",
-        desc: "自然減による部数減が避けられない。新規読者の獲得戦略が不在。"
-      },
-      new: {
-        title: "次世代層の開拓",
-        desc: "音大・芸大生、合唱団員など「プレイヤー層」を新規読者として獲得。"
-      }
-    },
-    {
-      id: 4,
-      category: "Web・DX",
-      icon: <Globe className="w-6 h-6" />,
-      old: {
-        title: "放置・老朽化",
-        desc: "更新ミス散見、セキュリティリスク大。紙媒体との連動不足。"
-      },
-      new: {
-        title: "専門管理・活性化",
-        desc: "委託先：DFE（予定）。プロによる管理で信頼回復。SNS連動や定期購読への導線を強化。"
-      }
-    },
-    {
-      id: 5,
-      category: "事業リスク",
-      icon: <ShieldCheck className="w-6 h-6" />,
-      old: {
-        title: "極めて高い（退職＝崩壊）",
-        desc: "突然の病気や退職で雑誌が止まるリスク。"
-      },
-      new: {
-        title: "分散・回避",
-        desc: "組織で制作するため、担当者が欠けても雑誌発行が継続できる体制。"
-      }
-    }
-  ];
-
-  const agendaItems = [
-    {
-      time: "05分",
-      title: "ご挨拶・趣旨説明",
-      speaker: "貴社担当者",
-      content: "本日の目的共有（編集体制の刷新とパートナーシップ）。日野会長からの一言。",
-      color: "bg-gray-100"
-    },
-    {
-      time: "10分",
-      title: "新体制のご提案・紹介",
-      speaker: "貴社担当者",
-      content: "シンコーミュージックへの委託によるOEM体制への移行案。「なぜシンコーなのか」を強調。",
-      color: "bg-blue-50"
-    },
-    {
-      time: "15分",
-      title: "シンコーミュージック側の受託方針",
-      speaker: "シンコー担当者",
-      content: "会社紹介と実績。ロック・ポップスのノウハウをどうクラシック誌に活かすか。",
-      color: "bg-blue-50"
-    },
-    {
-      time: "20分",
-      title: "クラシック市場の新規開拓戦略",
-      speaker: "坂元裕仁氏",
-      tag: "最重要",
-      content: "「読むだけの人」から「演奏する人」へ。音大連携、合唱・吹奏楽市場へのアプローチ。",
-      color: "bg-amber-50"
-    },
-    {
-      time: "10分",
-      title: "運営・Web体制およびスケジュール",
-      speaker: "貴社担当者",
-      content: "DFEによるデジタル化。契約・引継ぎ・新体制第1号の発行時期確認。",
-      color: "bg-gray-100"
-    },
-    {
-      time: "10分",
-      title: "質疑応答・ご決裁",
-      speaker: "全体",
-      content: "会長からの質問対応。実契約へ進むことの承認獲得。",
-      color: "bg-gray-100"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-amber-200">
-      
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-4' : 'bg-transparent py-6'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className={`font-serif text-2xl font-bold tracking-wide ${isScrolled ? 'text-slate-900' : 'text-white'}`}>
-            MOSTLY CLASSIC <span className="text-amber-500 text-sm block md:inline md:ml-2 font-sans font-normal tracking-normal">Re-founding Project</span>
-          </div>
-          <div className="hidden md:flex space-x-8">
-            <button onClick={() => window.print()} className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-colors ${isScrolled ? 'border-slate-300 hover:bg-slate-100' : 'border-white/30 text-white hover:bg-white/10'}`}>
-              <Printer size={16} /> 印刷用プレビュー
-            </button>
-          </div>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 bg-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div id="nav-logo" class="font-bold text-xl tracking-tighter text-white transition-colors duration-300">
+                MOSTLY CLASSIC <span class="text-xs font-normal border border-current px-2 py-0.5 ml-2 tracking-normal opacity-80">PROJECT 2026</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <button onclick="window.print()" id="print-btn" class="flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors text-white hover:bg-white/20 rounded">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Print Preview
+                </button>
+            </div>
         </div>
-      </nav>
+    </nav>
 
-      {/* Hero Section */}
-      <header className="relative h-[85vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1507838153414-b4b713384ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-            alt="Orchestra Hall" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-slate-900/70"></div>
+    <!-- Hero Section -->
+    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden bg-black">
+        <div class="absolute inset-0 z-0 opacity-40">
+            <img 
+                src="https://images.unsplash.com/photo-1507838153414-b4b713384ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                alt="Orchestra Hall" 
+                class="w-full h-full object-cover grayscale"
+            >
         </div>
         
-        <div className="relative z-10 container mx-auto px-6 text-center text-white">
-          <p className="text-amber-400 font-medium tracking-[0.2em] mb-4 animate-fade-in-up">2026年度 編集体制刷新案</p>
-          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in-up delay-100">
-            過去の清算ではなく、<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">未来への投資</span>を。
-          </h1>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-200">
-            属人的な運営から、組織としての資産へ。<br/>
-            シンコーミュージック × 坂元裕仁氏による「再創業」のご提案。
-          </p>
-          <div className="flex justify-center gap-4 animate-fade-in-up delay-300">
-            <a href="#comparison" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-sm transition-all duration-300 shadow-lg hover:shadow-amber-500/20">
-              新旧体制比較
-            </a>
-            <a href="#agenda" className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/30 px-8 py-3 rounded-sm transition-all duration-300">
-              2/26 会談詳細
-            </a>
-          </div>
+        <div class="relative z-10 container mx-auto px-6 text-center text-white">
+            <p class="text-gray-300 font-bold tracking-[0.2em] mb-6 text-sm uppercase fade-in-up">Re-founding Proposal</p>
+            <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter fade-in-up delay-100">
+                過去の清算ではなく、<br />
+                <span class="border-b-4 border-white pb-2">未来への投資</span>を。
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed font-light fade-in-up delay-200">
+                属人的な運営から、組織としての資産へ。<br/>
+                シンコーミュージック × 坂元裕仁氏による「再創業」のご提案。
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4 fade-in-up delay-300">
+                <a href="#comparison" class="bg-white text-black px-8 py-4 font-bold text-sm tracking-widest hover:bg-gray-200 transition-colors">
+                    新旧体制比較
+                </a>
+                <a href="#agenda" class="border border-white text-white px-8 py-4 font-bold text-sm tracking-widest hover:bg-white hover:text-black transition-colors">
+                    2/26 会談詳細
+                </a>
+            </div>
         </div>
         
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/50 animate-bounce">
-          <ChevronDown size={32} />
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8"></i>
         </div>
-      </header>
+    </header>
 
-      {/* Vision Statement */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-serif font-bold text-slate-800 mb-8 relative inline-block">
-              ご提案の核心
-              <span className="absolute -bottom-2 left-0 w-full h-1 bg-amber-500"></span>
-            </h2>
-            <div className="bg-slate-50 p-8 md:p-12 rounded-lg border-l-4 border-amber-500 shadow-sm text-left">
-              <p className="text-xl md:text-2xl font-serif text-slate-700 leading-relaxed mb-6">
-                「会長、これは単なる『編集長の交代』ではありません。<br/>
-                雑誌を属人化から解放し、<span className="bg-amber-100 font-bold px-1 text-slate-900">『企業としての資産』</span>に戻すためのプロジェクトです。」
-              </p>
-              <p className="text-slate-600 leading-relaxed">
-                現在の『モーストリー・クラシック』は、個人の手腕に過度に依存する「個人商店」の状態にあります。
-                シンコーミュージックと坂元氏という「最強の布陣」を迎えることで、休刊のリスクを回避するだけでなく、
-                新たな読者層を開拓し、持続可能な成長軌道へと乗せる「再創業」を目指します。
-              </p>
+    <!-- Vision Statement -->
+    <section class="py-24 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Key Message</h2>
+                <div class="border-l-4 border-black pl-8 py-2">
+                    <p class="text-2xl md:text-3xl font-bold leading-relaxed mb-6">
+                        「会長、これは単なる『編集長の交代』ではありません。<br/>
+                        雑誌を属人化から解放し、<span class="bg-black text-white px-2 inline-block">『企業としての資産』</span>に戻すためのプロジェクトです。」
+                    </p>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        現在の『モーストリー・クラシック』は、個人の手腕に過度に依存する「個人商店」の状態にあります。
+                        シンコーミュージックと坂元氏という「最強の布陣」を迎えることで、休刊のリスクを回避するだけでなく、
+                        新たな読者層を開拓し、持続可能な成長軌道へと乗せる「再創業」を目指します。
+                    </p>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Comparison Section */}
-      <section id="comparison" className="py-20 bg-slate-100">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-amber-600 font-bold tracking-widest uppercase text-sm">Structure Reform</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-800 mt-2">新旧体制比較</h2>
-            <p className="text-slate-500 mt-4">持続的成長に向けた編集体制の刷新案</p>
-          </div>
-
-          <div className="grid gap-8 max-w-6xl mx-auto">
-            {/* Header for Desktop */}
-            <div className="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-slate-300 text-sm font-bold text-slate-500 uppercase tracking-wider">
-              <div className="col-span-2 text-center">項目</div>
-              <div className="col-span-5 pl-4">現状（AS-IS）：属人的・高リスク</div>
-              <div className="col-span-5 pl-4">新体制（TO-BE）：組織的・成長型</div>
+    <!-- Comparison Section -->
+    <section id="comparison" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-200 pb-6">
+                <div>
+                    <span class="text-black font-bold tracking-widest uppercase text-xs">Structure Reform</span>
+                    <h2 class="text-3xl md:text-4xl font-black mt-2 tracking-tight">新旧体制比較</h2>
+                </div>
+                <p class="text-gray-500 mt-4 md:mt-0 font-medium">持続的成長に向けた編集体制の刷新案</p>
             </div>
 
-            {comparisonData.map((item) => (
-              <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group">
-                {/* Category Icon & Title */}
-                <div className="md:col-span-2 bg-slate-800 text-white p-6 flex flex-col items-center justify-center text-center">
-                  <div className="bg-white/10 p-3 rounded-full mb-2 group-hover:scale-110 transition-transform">
-                    {item.icon}
-                  </div>
-                  <span className="font-bold text-sm">{item.category}</span>
+            <div class="grid gap-6 max-w-6xl mx-auto">
+                <!-- Header for Desktop -->
+                <div class="hidden md:grid grid-cols-12 gap-4 pb-2 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    <div class="col-span-2 text-center">CATEGORY</div>
+                    <div class="col-span-5 pl-6">AS-IS (現状)</div>
+                    <div class="col-span-5 pl-6">TO-BE (新体制)</div>
                 </div>
 
-                {/* Old System */}
-                <div className="md:col-span-5 p-6 border-b md:border-b-0 md:border-r border-slate-100 flex flex-col justify-center relative bg-gray-50/50">
-                  <div className="md:hidden text-xs font-bold text-slate-400 uppercase mb-2">現状 (AS-IS)</div>
-                  <h3 className="font-bold text-lg text-slate-700 mb-2 flex items-center">
-                    {item.old.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {item.old.desc}
-                  </p>
+                <!-- Item 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-0 bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="md:col-span-2 bg-black text-white p-6 flex flex-col items-center justify-center text-center">
+                        <div class="mb-2 opacity-80">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-bold text-xs tracking-wider">運営主体</span>
+                    </div>
+                    <div class="md:col-span-5 p-8 border-b md:border-b-0 md:border-r border-gray-100 bg-gray-50">
+                        <div class="md:hidden text-xs font-bold text-gray-400 uppercase mb-2">AS-IS (現状)</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">個人商店化</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">現編集長個人の手腕と気分に依存。ガバナンスが効かずブラックボックス化。</p>
+                    </div>
+                    <div class="md:col-span-5 p-8 bg-white relative overflow-hidden">
+                        <div class="md:hidden text-xs font-bold text-black uppercase mb-2">TO-BE (新体制)</div>
+                        <h3 class="font-bold text-lg text-black mb-3 flex items-center gap-2">
+                            組織的運営（OEM）
+                            <i data-lucide="trending-up" class="w-4 h-4 text-black"></i>
+                        </h3>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">委託先：シンコーミュージック。法人契約に基づき、納期・品質・コンプライアンスを徹底。</p>
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gray-100 -mr-4 -mt-4 rotate-45"></div>
+                    </div>
                 </div>
 
-                {/* New System */}
-                <div className="md:col-span-5 p-6 flex flex-col justify-center relative bg-amber-50/30">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-amber-500 hidden md:block"></div>
-                  <div className="md:hidden text-xs font-bold text-amber-600 uppercase mb-2">新体制 (TO-BE)</div>
-                  <h3 className="font-bold text-lg text-amber-900 mb-2 flex items-center gap-2">
-                    {item.new.title}
-                    <TrendingUp size={16} className="text-amber-600" />
-                  </h3>
-                  <p className="text-sm text-slate-700 leading-relaxed font-medium">
-                    {item.new.desc}
-                  </p>
+                <!-- Item 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-0 bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="md:col-span-2 bg-black text-white p-6 flex flex-col items-center justify-center text-center">
+                        <div class="mb-2 opacity-80">
+                            <i data-lucide="book-open" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-bold text-xs tracking-wider">編集方針</span>
+                    </div>
+                    <div class="md:col-span-5 p-8 border-b md:border-b-0 md:border-r border-gray-100 bg-gray-50">
+                        <div class="md:hidden text-xs font-bold text-gray-400 uppercase mb-2">AS-IS (現状)</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">既存路線の踏襲</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">企画のマンネリ化。執筆陣や記事内容が固定化しがち。</p>
+                    </div>
+                    <div class="md:col-span-5 p-8 bg-white relative overflow-hidden">
+                        <div class="md:hidden text-xs font-bold text-black uppercase mb-2">TO-BE (新体制)</div>
+                        <h3 class="font-bold text-lg text-black mb-3 flex items-center gap-2">
+                            伝統 × 革新
+                            <i data-lucide="trending-up" class="w-4 h-4 text-black"></i>
+                        </h3>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">シンコーの編集力 × 坂元裕仁氏の知見。教育・合唱分野など新たな切り口を導入。</p>
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gray-100 -mr-4 -mt-4 rotate-45"></div>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
+
+                <!-- Item 3 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-0 bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="md:col-span-2 bg-black text-white p-6 flex flex-col items-center justify-center text-center">
+                        <div class="mb-2 opacity-80">
+                            <i data-lucide="target" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-bold text-xs tracking-wider">ターゲット</span>
+                    </div>
+                    <div class="md:col-span-5 p-8 border-b md:border-b-0 md:border-r border-gray-100 bg-gray-50">
+                        <div class="md:hidden text-xs font-bold text-gray-400 uppercase mb-2">AS-IS (現状)</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">高齢化する既存愛好家</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">自然減による部数減が避けられない。新規読者の獲得戦略が不在。</p>
+                    </div>
+                    <div class="md:col-span-5 p-8 bg-white relative overflow-hidden">
+                        <div class="md:hidden text-xs font-bold text-black uppercase mb-2">TO-BE (新体制)</div>
+                        <h3 class="font-bold text-lg text-black mb-3 flex items-center gap-2">
+                            次世代層の開拓
+                            <i data-lucide="trending-up" class="w-4 h-4 text-black"></i>
+                        </h3>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">音大・芸大生、合唱団員など「プレイヤー層」を新規読者として獲得。</p>
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gray-100 -mr-4 -mt-4 rotate-45"></div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-0 bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="md:col-span-2 bg-black text-white p-6 flex flex-col items-center justify-center text-center">
+                        <div class="mb-2 opacity-80">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-bold text-xs tracking-wider">Web・DX</span>
+                    </div>
+                    <div class="md:col-span-5 p-8 border-b md:border-b-0 md:border-r border-gray-100 bg-gray-50">
+                        <div class="md:hidden text-xs font-bold text-gray-400 uppercase mb-2">AS-IS (現状)</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">放置・老朽化</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">更新ミス散見、セキュリティリスク大。紙媒体との連動不足。</p>
+                    </div>
+                    <div class="md:col-span-5 p-8 bg-white relative overflow-hidden">
+                        <div class="md:hidden text-xs font-bold text-black uppercase mb-2">TO-BE (新体制)</div>
+                        <h3 class="font-bold text-lg text-black mb-3 flex items-center gap-2">
+                            専門管理・活性化
+                            <i data-lucide="trending-up" class="w-4 h-4 text-black"></i>
+                        </h3>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">委託先：DFE（予定）。プロによる管理で信頼回復。SNS連動や定期購読への導線を強化。</p>
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gray-100 -mr-4 -mt-4 rotate-45"></div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-0 bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="md:col-span-2 bg-black text-white p-6 flex flex-col items-center justify-center text-center">
+                        <div class="mb-2 opacity-80">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <span class="font-bold text-xs tracking-wider">事業リスク</span>
+                    </div>
+                    <div class="md:col-span-5 p-8 border-b md:border-b-0 md:border-r border-gray-100 bg-gray-50">
+                        <div class="md:hidden text-xs font-bold text-gray-400 uppercase mb-2">AS-IS (現状)</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">極めて高い（退職＝崩壊）</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">突然の病気や退職で雑誌が止まるリスク。</p>
+                    </div>
+                    <div class="md:col-span-5 p-8 bg-white relative overflow-hidden">
+                        <div class="md:hidden text-xs font-bold text-black uppercase mb-2">TO-BE (新体制)</div>
+                        <h3 class="font-bold text-lg text-black mb-3 flex items-center gap-2">
+                            分散・回避
+                            <i data-lucide="trending-up" class="w-4 h-4 text-black"></i>
+                        </h3>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">組織で制作するため、担当者が欠けても雑誌発行が継続できる体制。</p>
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gray-100 -mr-4 -mt-4 rotate-45"></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </section>
+    </section>
 
-      {/* Agenda Section */}
-      <section id="agenda" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-slate-200 pb-6 max-w-5xl mx-auto">
-            <div>
-              <span className="text-amber-600 font-bold tracking-widest uppercase text-sm">Meeting Agenda</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-800 mt-2">2/26 会談 詳細アジェンダ</h2>
+    <!-- Agenda Section -->
+    <section id="agenda" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-200 pb-6 max-w-5xl mx-auto">
+                <div>
+                    <span class="text-black font-bold tracking-widest uppercase text-xs">Meeting Agenda</span>
+                    <h2 class="text-3xl md:text-4xl font-black mt-2 tracking-tight">2/26 会談進行案</h2>
+                </div>
+                <div class="text-right mt-4 md:mt-0">
+                    <p class="text-black font-bold">2月26日（水） 時間未定</p>
+                    <p class="text-gray-500 text-sm mt-1">日野会長 / シンコーミュージック / 坂元氏</p>
+                </div>
             </div>
-            <div className="text-right mt-4 md:mt-0">
-              <p className="text-slate-600 font-medium">日時: 2月26日（水） 時間未定</p>
-              <p className="text-slate-500 text-sm">参加者: 日野会長、シンコーミュージック、坂元裕仁氏、貴社担当者</p>
-            </div>
-          </div>
 
-          <div className="max-w-4xl mx-auto relative">
-            {/* Vertical Line */}
-            <div className="absolute left-4 md:left-24 top-0 bottom-0 w-0.5 bg-slate-200"></div>
+            <div class="max-w-4xl mx-auto relative">
+                <!-- Vertical Line -->
+                <div class="absolute left-3 top-2 bottom-0 w-px bg-gray-200 md:left-[5.5rem]"></div>
 
-            {agendaItems.map((item, index) => (
-              <div key={index} className="relative flex flex-col md:flex-row gap-6 mb-10 group">
+                <!-- Agenda Items -->
                 
-                {/* Time & Icon */}
-                <div className="flex items-center md:w-24 flex-shrink-0 md:justify-end z-10 pl-4 md:pl-0">
-                  <div className={`w-8 h-8 rounded-full border-4 border-white shadow-sm flex items-center justify-center text-xs font-bold ${item.tag ? 'bg-amber-500 text-white' : 'bg-slate-700 text-white'}`}>
-                    {index + 1}
-                  </div>
-                  <span className="ml-4 font-mono font-bold text-slate-500 md:hidden">{item.time}</span>
+                <!-- Item 1 -->
+                <div class="relative flex flex-col md:flex-row gap-6 mb-12 group">
+                    <div class="flex items-start md:w-24 flex-shrink-0 md:justify-end z-10 pl-1 md:pl-0 pt-1">
+                       <span class="text-xs font-mono font-bold bg-black text-white px-2 py-1">05分</span>
+                    </div>
+                    <div class="flex-1 pl-4 md:pl-0">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-black">ご挨拶・趣旨説明</h3>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                            <i data-lucide="mic-2" class="w-3 h-3"></i>
+                            <span>貴社担当者</span>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">本日の目的共有（編集体制の刷新とパートナーシップ）。日野会長からの一言。</p>
+                    </div>
                 </div>
-                
-                <span className="hidden md:block absolute left-4 md:left-[5.5rem] top-1 text-sm font-mono text-slate-400 font-bold bg-white px-1">
-                  {item.time}
-                </span>
 
-                {/* Card */}
-                <div className={`flex-1 rounded-lg p-6 shadow-sm border border-slate-100 transition-all hover:shadow-md ${item.color}`}>
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-lg text-slate-800">{item.title}</h3>
-                    {item.tag && (
-                      <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-sm animate-pulse">
-                        {item.tag}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-500 mb-3 font-medium">
-                    <Mic2 size={14} />
-                    <span>{item.speaker}</span>
-                  </div>
-                  <p className="text-slate-700 text-sm leading-relaxed border-t border-slate-200/50 pt-3">
-                    {item.content}
-                  </p>
+                <!-- Item 2 -->
+                <div class="relative flex flex-col md:flex-row gap-6 mb-12 group">
+                    <div class="flex items-start md:w-24 flex-shrink-0 md:justify-end z-10 pl-1 md:pl-0 pt-1">
+                       <span class="text-xs font-mono font-bold bg-black text-white px-2 py-1">10分</span>
+                    </div>
+                    <div class="flex-1 pl-4 md:pl-0">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-black">新体制のご提案・紹介</h3>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                            <i data-lucide="mic-2" class="w-3 h-3"></i>
+                            <span>貴社担当者</span>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">シンコーミュージックへの委託によるOEM体制への移行案。「なぜシンコーなのか」を強調。</p>
+                    </div>
                 </div>
-              </div>
-            ))}
-            
-            {/* End Point */}
-            <div className="relative flex md:justify-end md:pr-[calc(100%-6rem)] pl-4 md:pl-0">
-               <div className="w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm ml-2 md:ml-0 md:mr-[0.3rem]"></div>
+
+                <!-- Item 3 -->
+                <div class="relative flex flex-col md:flex-row gap-6 mb-12 group">
+                    <div class="flex items-start md:w-24 flex-shrink-0 md:justify-end z-10 pl-1 md:pl-0 pt-1">
+                       <span class="text-xs font-mono font-bold bg-black text-white px-2 py-1">15分</span>
+                    </div>
+                    <div class="flex-1 pl-4 md:pl-0">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-black">シンコーミュージック側の受託方針</h3>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                            <i data-lucide="mic-2" class="w-3 h-3"></i>
+                            <span>シンコー担当者</span>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">会社紹介と実績。ロック・ポップスのノウハウをどうクラシック誌に活かすか。</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 (Highlighted) -->
+                <div class="relative flex flex-col md:flex-row gap-6 mb-12 group">
+                    <div class="flex items-start md:w-24 flex-shrink-0 md:justify-end z-10 pl-1 md:pl-0 pt-1">
+                       <span class="text-xs font-mono font-bold bg-black text-white px-2 py-1">20分</span>
+                    </div>
+                    <div class="flex-1 pl-4 md:pl-0 border-l-4 border-black pl-6 md:pl-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-black">クラシック市場の新規開拓戦略</h3>
+                            <span class="inline-block bg-black text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider mt-2 md:mt-0">
+                                最重要
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                            <i data-lucide="mic-2" class="w-3 h-3"></i>
+                            <span>坂元裕仁氏</span>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">「読むだけの人」から「演奏する人」へ。音大連携、合唱・吹奏楽市場へのアプローチ。</p>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="relative flex flex-col md:flex-row gap-6 mb-12 group">
+                    <div class="flex items-start md:w-24 flex-shrink-0 md:justify-end z-10 pl-1 md:pl-0 pt-1">
+                       <span class="text-xs font-mono font-bold bg-black text-white px-2 py-1">10分</span>
+                    </div>
+                    <div class="flex-1 pl-4 md:pl-0">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-black">運営・Web体制およびスケジュール</h3>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                            <i data-lucide="mic-2" class="w-3 h-3"></i>
+                            <span>貴社担当者</span>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">DFEによるデジタル化。契約・引継ぎ・新体制第1号の発行時期確認。</p>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="relative flex flex-col md:flex-row gap-6 mb-12 group">
+                    <div class="flex items-start md:w-24 flex-shrink-0 md:justify-end z-10 pl-1 md:pl-0 pt-1">
+                       <span class="text-xs font-mono font-bold bg-black text-white px-2 py-1">10分</span>
+                    </div>
+                    <div class="flex-1 pl-4 md:pl-0">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-black">質疑応答・ご決裁</h3>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                            <i data-lucide="mic-2" class="w-3 h-3"></i>
+                            <span>全体</span>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">会長からの質問対応。実契約へ進むことの承認獲得。</p>
+                    </div>
+                </div>
+
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Footer / Contact */}
-      <footer className="bg-slate-900 text-slate-400 py-12">
-        <div className="container mx-auto px-6 text-center">
-          <h3 className="font-serif text-2xl text-white mb-6">MOSTLY CLASSIC</h3>
-          <p className="max-w-2xl mx-auto mb-8 text-sm">
-            本資料はモーストリー・クラシック編集体制変更に関する提案草案です。<br/>
-            内容は検討用であり、関係者外秘としてお取り扱いください。
-          </p>
-          <div className="flex justify-center gap-4 text-sm">
-             <span>© 2026 Mostly Classic Project Team</span>
-          </div>
+    <!-- Footer -->
+    <footer class="bg-black text-white py-16">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-8 md:mb-0 text-center md:text-left">
+                <h3 class="font-bold text-2xl tracking-tighter mb-2">MOSTLY CLASSIC</h3>
+                <p class="text-gray-500 text-xs uppercase tracking-widest">Re-founding Project 2026</p>
+            </div>
+            <div class="text-gray-500 text-xs text-center md:text-right">
+                <p>CONFIDENTIAL</p>
+                <p class="mt-2">© 2026 Project Team</p>
+            </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+    </footer>
 
-export default App;
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Scroll Handling
+        const navbar = document.getElementById('navbar');
+        const navLogo = document.getElementById('nav-logo');
+        const printBtn = document.getElementById('print-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Scrolled state
+                navbar.classList.remove('bg-transparent', 'py-6');
+                navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'border-b', 'border-gray-200', 'py-4');
+                
+                navLogo.classList.remove('text-white');
+                navLogo.classList.add('text-black');
+                
+                printBtn.classList.remove('text-white', 'hover:bg-white/20');
+                printBtn.classList.add('text-black', 'hover:bg-gray-100');
+            } else {
+                // Top state
+                navbar.classList.add('bg-transparent', 'py-6');
+                navbar.classList.remove('bg-white/90', 'backdrop-blur-md', 'border-b', 'border-gray-200', 'py-4');
+                
+                navLogo.classList.add('text-white');
+                navLogo.classList.remove('text-black');
+                
+                printBtn.classList.add('text-white', 'hover:bg-white/20');
+                printBtn.classList.remove('text-black', 'hover:bg-gray-100');
+            }
+        });
+
+        // Smooth Scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
